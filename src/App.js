@@ -1,11 +1,16 @@
-
 import './App.css';
-import UseEffectExample from './components/use-effect/UseEffectExample';
+// import DataFetch from './components/useEffectHook/customHook/DataFetch';
+import UserForm from './components/useStateHook.js/UserForm';
+// import UseEffectExample from './components/useEffectHook/UseEffectExample';
+
 
 function App() {
   return (
     <div className="App">
-      <UseEffectExample/>
+      {/* UseEffectExample */}
+      {/* <DataFetch/> */}
+      <UserForm/>
+      
     </div>
   );
 }
