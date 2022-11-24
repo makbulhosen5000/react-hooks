@@ -1,6 +1,7 @@
 import './App.css';
+import UseReducer from './components/useReducerHook/UseReducer';
+//import UserForm from './components/useRefHook/UserForm';
 // import DataFetch from './components/useEffectHook/customHook/DataFetch';
-import UserForm from './components/useStateHook.js/UserForm';
 // import UseEffectExample from './components/useEffectHook/UseEffectExample';
 
 
@@ -9,7 +10,8 @@ function App() {
     <div className="App">
       {/* UseEffectExample */}
       {/* <DataFetch/> */}
-      <UserForm/>
+      {/* <UserForm/> */}
+      <UseReducer/>
       
     </div>
   );
