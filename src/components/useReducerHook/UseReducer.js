@@ -1,52 +1,85 @@
-import React, { useState } from 'react';
+import React, { useReducer, useState } from 'react'
 
 
-const bookList =[
-{id:1, name:"You can win"},
-{id:2, name:"You can loss Your money"},
-];
+const booksData = [
+    {id:1, name:"You Can Win"},
+    {id:2, name:"Change Attitude Change Your Life"},
+    {id:3, name:"JavaScript"},
+]
 
+const reducer=(state,action)=>{
+  //action.type action.payload
+  if(action.type==="ADD"){
+     const allBooks = [...state.books,action.payload]
+     return{
+      ...state,
+      books:allBooks,
+      isModalOpen:true,
+      modalText:"book is added"
+     }
+  }
+  if(action.type==="REMOVE"){
+    const filteredBooks = [...state.books].filter(book=>book.id!==action.payload);
+    return{
+      ...state,
+      books:filteredBooks,
+      isModalOpen:true,
+      modalText:"book is remove"
+    }
+  }
+   return state;
+}
+
+//initialState function
+const initialState = {
+      books:booksData,
+      isModalOpen:false,
+       modalText:"",
+}
+
+//UseReducer function (main)
 function UseReducer() {
-  const [isModelOpen,setIsModelOpen] = useState(false);
-  const [isModelText,setIsModelText] = useState("");
-  const [books,setBook] = useState(bookList);
-  const [addBook,setAddBook] = useState("");
+    const [bookName,setBookName] = useState("");
+    
+    const [bookState,dispatch] = useReducer(reducer,initialState)
+    
+    const Modal = ({modalText}) =>{
+         return <p>{modalText}</p>
+    }
 
-  const formHandler = (e) =>{
-    e.preventDefault();
-    setBook((prevState)=>{
-        const newBook = {id:new Date().getTime().toString(),name:addBook}
-        return [...prevState,newBook];
-    })
-    setIsModelOpen(true);
-    setIsModelText("Book is Added")
+    const formHandler = (e) =>{
+      e.preventDefault();
+        const newBook = {id:new Date().getTime().toString(),name:bookName}
+        dispatch({type:"ADD",payload:newBook});
+        //after book added setBookName will empty
+        setBookName("");
+    }
 
-   
-  }
-
-  const Model = ({modelText}) =>{
-     return(
-      <p>{modelText}</p>
-     )
-  }
-
-  
+    const removeBook=(id)=>{
+     dispatch({type:"REMOVE",payload:id})
+    };
   return (
-    <div>
-        <form onSubmit={formHandler}>
-           <input type="text" value={addBook} onChange={(e)=>{
-            setAddBook(e.target.value);
-           }} />
-           <button type="submit">Submit</button>
-        </form>
-
-        {isModelOpen && <Model modelText ={isModelText} />}
-        {books.map((book)=>{
-            const {id, name} = book;
+    
+    <div style={{ textAlign:"center", }}>
+            <form  onSubmit={formHandler}>
+              <label></label>
+               <input type="text" name="name" value={bookName} onChange={(e)=>{setBookName(e.target.value)}} />
+               <button type='submit'>Add Book</button>
+            </form>
+            {bookState.isModalOpen && <Modal modalText={bookState.modalText} />}
+        <h1>Use Reducer Book List</h1>
+        {bookState.books.map((book)=>{
+             const {id,name} = book;
             return(
-                <li key={id}>{name}</li>
+               
+                <li key={id}>{name} <button onClick={()=>removeBook(id)}>REMOVE</button></li>
             )
         })}
+  
+       
+        
+         
+
     </div>
   )
 }
