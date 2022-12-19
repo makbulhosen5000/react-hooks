@@ -1,7 +1,8 @@
 import React from 'react';
 import './App.css';
+import UseMemo from './components/useMemoHook/UseMemo';
 
-import ReducerMain from './components/useReducerHook/ReducerMain';
+//import ReducerMain from './components/useReducerHook/ReducerMain';
 // import ComplexCounter2 from './components/useReducerHook/ComplexCounter2';
 // import ComplexCounter from './components/useReducerHook/ComplexCounter';
 // import ReducerCounter from './components/useReducerHook/ReducerCounter';
@@ -23,8 +24,8 @@ function App() {
       {/* <UseReducer/> */}
       {/* <ReducerCounter/> */}
       {/* <ComplexCounter2/> */}
-
-      <ReducerMain/>
+      {/* <ReducerMain/> */}
+      <UseMemo/>
     </div>
   );
 }
